@@ -1,11 +1,13 @@
-package bank;
+// package udemy_exercises.bank;
 
-public class Customer {
+// public class Customer {
+// 	String name;
 
-}
+// 	Customer(String name) {
+// 		this.name = name;
+// 	}
+// }
 
 /*
-- **Customer Class**:
-- Customer Name
-*/
-
+ * - **Customer Class**: - Customer Name
+ */
