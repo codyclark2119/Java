@@ -1,35 +1,54 @@
-/*
-package udemy_exercises.bank;
+package bank;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Branch {
-  private String name;
-  private ArrayList<Customer> customers;
+    private final String name;
+    private final ArrayList<Customer> customers;
 
-  private ArrayList<Double> transactions;
+    public Branch(String name) {
+        this.name = name;
+        this.customers = new ArrayList<Customer>();
+    }
 
-  Branch(String name, ArrayList<Customer> customers) {
-    this.name = name;
-    this.customers = new ArrayList<Customer>();
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void addCustomer(Customer customer) {
-      this.customers.add(customer);
-  };
-  
-  public void addTransaction();
+    public boolean addCustomer(String customerName, double initialAmount) {
+        if (findCustomer(customerName) == null) {
+            this.customers.add(new Customer(customerName, initialAmount));
+            return true;
+        }
 
-  public String getName() {
-    return name;
-  }
+        return false;
+    }
 
-  public ArrayList<Customer> getCustomers() {
-    return customers;
-  }
+  public boolean addTransaction(String customerName, double amount) {
+        Customer existingCustomer = findCustomer(customerName);
+        if (findCustomer(customerName) != null) {
+            existingCustomer.addTransaction(amount);
+            return true;
+        }
+        return false;
+    }
+
+    private Customer findCustomer(String customerName) {
+        for (int i = 0; i < this.customers.size(); i++) {
+            Customer checkedCustomer = this.customers.get(i);
+            if (checkedCustomer.getName().equals(customerName)) {
+                return checkedCustomer;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
 
 }
-*/
+
 /*
  ** Branch Class**: - addCustomer and initial transaction amount. - Also needs to
  * add additional transactions for that customer/branch

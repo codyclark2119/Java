@@ -1,83 +1,82 @@
-package udemy_exercises.cell_phone;
+package cell_phone;
 
 import java.util.*;
 
 class CellPhone {
-  Contact c = new Contact("cody", "4693161463");
-  ArrayList<Contact> contacts = new ArrayList<Contact>();
-  Scanner menuInput = new Scanner(System.in);
+  private ArrayList<Contact> myContacts;
 
-  public static void main(String[] args) {
-    System.out.println("Welcome");
-    CellPhone myCell = new CellPhone();
-    myCell.userMenu();
+  public CellPhone() {
+    this.myContacts = new ArrayList<Contact>();
   }
 
-  void showContacts() {
-    for (int i = 0; i < contacts.size(); i++) {
-      System.out.println("Contact Name:");
-      System.out.println(contacts.get(i).name);
-      System.out.println("Contact Phone Number:");
-      System.out.println(contacts.get(i).phoneNumber);
+  public void showContacts() {
+    for (int i = 0; i < myContacts.size(); i++) {
+      System.out.println((i + 1) + "." + "Contact Name: " + myContacts.get(i).getName() + " Phone Number: "
+          + myContacts.get(i).getPhoneNumber());
+    }
+    if (myContacts.size() == 0) {
+      System.out.println("No contacts to list.");
     }
   }
 
-  void addContact() {
-    System.out.println("Enter contact name:");
-    // Scanner input1 = new Scanner(System.in);
-    String name = menuInput.nextLine();
-    System.out.println("Enter contact phone number:");
-    // Scanner input2 = new Scanner(System.in);
-    if ()
-    String phoneNumber = menuInput.nextLine();
-    // input1.close();
-    // input2.close();
-    Contact newUser = new Contact(name, phoneNumber);
-    contacts.add(newUser);
+  public boolean addContact(Contact contact) {
+    if (searchContact(contact.getName()) >= 0) {
+      System.out.println("Contact already exists");
+      return false;
+    }
+    myContacts.add(contact);
+    return true;
   }
 
-  void removecontact() {
-
+  public boolean removeContact(Contact contact) {
+    int foundPosition = searchContact(contact);
+    if (foundPosition < 0) {
+      System.out.println(contact.getName() + ", was not found.");
+      return false;
+    }
+    this.myContacts.remove(foundPosition);
+    System.out.println(contact.getName() + ", has been deleted.");
+    return true;
   }
 
-  void modifyContect() {
-
+  public boolean modifyContact(Contact oldContact, Contact newContact) {
+    int foundPosition = searchContact(oldContact);
+    if (foundPosition < 0) {
+      System.out.println(oldContact.getName() + ", was not found.");
+      return false;
+    }
+    this.myContacts.set(foundPosition, newContact);
+    System.out.println(newContact.getName() + ", has been updated.");
+    return true;
   }
 
-  void searchContact() {
-
+  private int searchContact(Contact contact) {
+    return this.myContacts.indexOf(contact);
   }
 
-  void userMenu() {
-    System.out.println(
-        "Type an option letter: \n (D)isplay contacts \n (A)dd contact \n (R)emove contact \n (M)odify contact \n (S)earch contacts \n (Q)uit");
-    while (menuInput.hasNextLine()) {
-      String userChoice = menuInput.next();
-      switch (userChoice) {
-        case "d":
-          showContacts();
-          break;
-        case "a":
-          addContact();
-          break;
-        case "r":
-          removecontact();
-          break;
-        case "m":
-          modifyContect();
-          break;
-        case "s":
-          searchContact();
-          break;
-        case "q":
-          menuInput.close();
-          break;
-        default:
-          System.out.println("Enter a valid choice");
-          userMenu();
-          break;
+  private int searchContact(String contactName) {
+    for (int i = 0; i < this.myContacts.size(); i++) {
+      Contact contact = this.myContacts.get(i);
+      if (contact.getName().toUpperCase().equals(contactName.toUpperCase())) {
+        return i;
       }
     }
+    return -1;
+  }
+
+  public String queryContact(Contact contact) {
+    if (searchContact(contact) >= 0) {
+      return contact.getName();
+    }
+    return null;
+  }
+
+  public Contact queryContact(String name) {
+    int position = searchContact(name);
+    if (position >= 0) {
+      return this.myContacts.get(position);
+    }
+    return null;
   }
 }
 
