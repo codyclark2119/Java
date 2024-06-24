@@ -1,11 +1,17 @@
 class Statically {
     //fix this code, so all of the instantiation and console.logs() work.  Try not to change the signature of the class, unless absolutely necessary.
+
     static #glue = "Epoxy";
     jello = "Jello";
 
-    moveAndShake() {
+    static moveAndShake() {
         console.log("Never stagnate in life.  Be agile, change, and improve...");
     }
+
+    getGlue(){
+        return Statically.#glue;
+    }
+
 
     static stubborn() {
         this.moveAndShake();
@@ -13,8 +19,9 @@ class Statically {
     }
 
     static explain() {
-        stubborn();
-        console.log(#glue);
+        Statically.stubborn();
+        console.log(this.#glue);
+        console.log("Static in both languages makes the method or variable globally accessible but in Java it doesn't need to be instanced to be called while in JS you have to call the class itself to run the method.")
         //write an explanation for how the keyword static behaves differently in javascript vs. java.
     }
 
@@ -24,11 +31,11 @@ class Statically {
 
 const stats = new Statically();
 
-stats.moveAndShake();
-stubborn();
-stats.explain();
+Statically.moveAndShake();
+Statically.stubborn();
+Statically.explain();
 
-console.log(stats.#glue);
+console.log(stats.getGlue());
 console.log(stats.jello);
 
 //Once you have finished getting statistically.js to run, refactor the code here in Java.
